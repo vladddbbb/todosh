@@ -17,6 +17,7 @@ const initialState = {
         isFinished: false,
         tags: [],
         finishDatetime: '',
+        order: 2
     }
 };
 
