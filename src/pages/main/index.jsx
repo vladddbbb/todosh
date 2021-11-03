@@ -1,3 +1,7 @@
 import React from 'react';
 
-export default () => <h1>TODOSH</h1>;
+export default () => {
+  return(
+    <h1>TODOSH</h1>
+  );
+}
