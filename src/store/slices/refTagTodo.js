@@ -1,4 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { deleteTag } from './tag';
+import { commitDelete } from './todo';
 
 const initialState = [];
 
@@ -22,6 +24,16 @@ const refSlice = createSlice({
         },
         deleteRef(state, {payload}) {
             const newState = state.filter(item => item.tagId !== payload.tagId && item.todoId !== payload.todoId);
+            state = [...newState];
+        }
+    },
+    extraReducers: {
+        [deleteTag]: (state, { payload }) => {
+            const newState = state.filter(item => item.tagId !== payload);
+            state = [...newState];
+        },
+        [commitDelete]: (state, {payload}) => {
+            const newState = state.filter(item => item.todoId !== payload);
             state = [...newState];
         }
     }

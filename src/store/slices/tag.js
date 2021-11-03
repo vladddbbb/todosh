@@ -1,8 +1,12 @@
-import { createSelector, createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    tags: {}, //{{tag1 : 'tag1'}, {tag2:'tag2'}}
-    maxSize: 100,
+    tags: {
+        tag1: 'tag1',
+        tag2: 'tag2',
+        tag3: 'tag3'
+    }, //{tag1 : 'tag1', {tag2:'tag2'}}
+    tagTextMaxSize: 100,
 };
 
 const tagSlice = createSlice({
@@ -17,9 +21,6 @@ const tagSlice = createSlice({
         }
     }
 });
-
-export const selectTags = createSelector(state => Object.values(state.tags.tags));
-
 
 export const { addTag, deleteTag } = tagSlice.actions;
 export default tagSlice.reducer;

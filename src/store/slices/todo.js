@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { createSelector } from '@reduxjs/toolkit';
 import dayjs from 'dayjs';
 
 const initialState = {
@@ -67,11 +66,17 @@ const todoSlice = createSlice({
             todos[payload.id] = payload.todo;
             editedTodo = null;
         },
+        cancelEdit({editedTodo}){
+            editedTodo = null;
+        },
         startDelete({ deletedTodo }, { payload }) {
             deletedTodo = payload;
         },
         commitDelete({ todos, deletedTodo }, { payload }) {
             delete todos[payload.id];
+            deletedTodo = null;
+        },
+        cancelDelete({deletedTodo}) {
             deletedTodo = null;
         },
         moveUp({todos}, {payload}) {
@@ -133,36 +138,39 @@ const todoSlice = createSlice({
         },
         setSearchText({searchText}, {payload}) {
             searchText = payload;
+        },
+        clearSearchText({searchText}) {
+            searchText = null;
+        },
+        addTagFilter({tagFilter}, {payload}) {
+            tagFilter.push(payload);
+        },
+        removeTagFilter({tagFilter}, {payload}){
+            tagFilter = tagFilter.filter(item => item !== payload);
+        },
+        clearTagFilter({tagFilter}) {
+            tagFilter = [];
         }
     }
 });
 
-const sort = todoArr => {
-    return todoArr.sort((a, b) => a.order - b.order);
-}
-
-export const selectFilteredTodos = createSelector(
-    state => state.todo.todos,
-    state => state.todo.tagFilter,
-    state => state.todo.searchText,
-    state => state.refTagTodo,
-    (todos, tagFilter, searchText, refs) => {
-        console.log(todos, tagFilter);
-        let filteredTodos = Object.values(todos);
-        if (tagFilter.length && refs.length) {
-            const keys = Object.keys(todos);
-            keys.forEach(key => {
-                const connectedTags = refs.filter(ref => ref.todoId === todos[key].id).map(ref => ref.tagId);
-                if (tagFilter.every(item => connectedTags.includes(item))) {
-                    filteredTodos.push(todos[key]);
-                }
-            });
-        }
-        if (searchText) {
-            filteredTodos = filteredTodos.filter(item => item.name.toLowerCase().includes(searchText.toLowerCase()) || item.description.toLowerCase().includes(searchText.toLowerCase()));
-        }
-        return sort(filteredTodos);
-    }
-);
-
+export const {
+    addTodo,
+    startEdit,
+    commitEdit,
+    cancelEdit,
+    startDelete,
+    commitDelete,
+    cancelDelete,
+    moveUp,
+    moveDown,
+    sortByCreatedDate,
+    sortByUpdatedDate,
+    toggleComplete,
+    setSearchText,
+    clearSearchText,
+    addTagFilter,
+    removeTagFilter,
+    clearTagFilter,
+} = todoSlice.actions;
 export default todoSlice.reducer;
