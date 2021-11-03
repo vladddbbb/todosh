@@ -130,6 +130,9 @@ const todoSlice = createSlice({
         },
         toggleComplete({ todos }, {payload}) {
             todos[payload].isComplete = !todos[payload].isComplete;
+        },
+        setSearchText({searchText}, {payload}) {
+            searchText = payload;
         }
     }
 });
@@ -139,13 +142,14 @@ const sort = todoArr => {
 }
 
 export const selectFilteredTodos = createSelector(
-    state => state.todo,
+    state => state.todo.todos,
+    state => state.todo.tagFilter,
+    state => state.todo.searchText,
     state => state.refTagTodo,
-    ({ todos, tagFilter, searchText }, refs) => {
+    (todos, tagFilter, searchText, refs) => {
         console.log(todos, tagFilter);
-        //todo: search filter!!!
+        let filteredTodos = Object.values(todos);
         if (tagFilter.length && refs.length) {
-            const filteredTodos = [];
             const keys = Object.keys(todos);
             keys.forEach(key => {
                 const connectedTags = refs.filter(ref => ref.todoId === todos[key].id).map(ref => ref.tagId);
@@ -153,10 +157,11 @@ export const selectFilteredTodos = createSelector(
                     filteredTodos.push(todos[key]);
                 }
             });
-            return sort(filteredTodos);
-        } else {
-            return sort(Object.values(todos));
         }
+        if (searchText) {
+            filteredTodos = filteredTodos.filter(item => item.name.toLowerCase().includes(searchText.toLowerCase()) || item.description.toLowerCase().includes(searchText.toLowerCase()));
+        }
+        return sort(filteredTodos);
     }
 );
 
