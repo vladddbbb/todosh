@@ -1,7 +1,7 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSelector, createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    tags: {}, //todo: {"name" : 'name'}
+    tags: {}, //{{tag1 : 'tag1'}, {tag2:'tag2'}}
     maxSize: 100,
 };
 
@@ -9,16 +9,16 @@ const tagSlice = createSlice({
     name: 'tags',
     initialState,
     reducers: {
-        addTag({ tags, size }, action) {
-            tags[size] = action.payload;
-            size++;
+        addTag({ tags }, { payload }) {
+            tags[payload] = payload;
         },
-        deleteTag({tags, size}, action) {
-            delete tags[action.payload];
-            size--;
+        deleteTag({tags}, { payload }) {
+            delete tags[payload];
         }
     }
 });
+
+export const selectTags = createSelector(state => Object.values(state.tags.tags));
 
 
 export const { addTag, deleteTag } = tagSlice.actions;
