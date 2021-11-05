@@ -1,0 +1,43 @@
+.todo:hover .todo-title__item_hidden {
+  cursor: pointer;
+  visibility: visible;
+}
+
+.todo_is_completed {
+  opacity: 0.2;
+}
+
+.todo_is_completed .ant-card-actions {
+  pointer-events: none;
+}
+
+.todo-title {
+  display: flex;
+  align-items: center;
+}
+
+.todo-title__item {
+  margin-right: 10px !important;
+}
+
+.todo-title__item_hidden {
+  visibility: hidden;
+}
+
+.ant-card-actions {
+  display: flex;
+}
+
+.ant-card-actions li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.edited-form-item {
+  margin-bottom: 0 !important;
+}
+
+.edited-form-item_wrappable {
+  padding: 15px !important;
+}

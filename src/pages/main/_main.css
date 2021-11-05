@@ -1,13 +1,18 @@
-.top-row {
-  margin-bottom: 15px;
-}
-
-.sort-radios {
+.main-page {
   width: 100%;
-
-  display: flex !important;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.sort-radios__button {
-  flex: 1;
+.main-page__container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.main-page__paragraph {
+  text-align: center;
 }

@@ -1,41 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { memo } from 'react';
 
-import { Col, Card, Typography } from 'antd';
+import { useSelector } from 'react-redux';
+import { selectIsEditedTodo } from '@src/store/selectors/todoSelectors';
 
-import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import { Col } from 'antd';
 
-const { Title, Paragraph } = Typography;
+import Todo from './todo';
+import EditedTodo from './editedTodo';
 
-const TodoContainer = () => {
-  const [isEditable, setIsEditable] = useState(false);
+import './_todoItem.css';
 
-  const onEditClick = () => {
-    setIsEditable((prevState) => !prevState);
-  };
-
-  useEffect(() => {
-    console.log(isEditable);
-  }, [isEditable]);
+const TodoContainer = memo((todoProps) => {
+  const isEditedTodo = useSelector(selectIsEditedTodo(todoProps.id));
 
   return (
-    <Col span={24}>
-      <Card
-        bordered
-        title={
-          <>
-            <Title level={3}>Todo title 1</Title>
-          </>
-        }
-        actions={[
-          <Paragraph>2 days remains</Paragraph>,
-          <EditOutlined onClick={onEditClick} key="edit" />,
-          <DeleteOutlined key="delete" />,
-        ]}
-      >
-        <Paragraph>Todo description</Paragraph>
-      </Card>
-    </Col>
+    <Col span={24}>{!isEditedTodo ? <Todo {...todoProps} /> : <EditedTodo {...todoProps} />}</Col>
   );
-};
+});
 
 export default TodoContainer;

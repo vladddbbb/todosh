@@ -7,12 +7,16 @@ import RouterWrapper from '@src/wrappers/routerWrapper';
 import ReduxWrapper from '@src/wrappers/reduxWrapper';
 
 import Main from '@src/pages/main';
+import Todos from '@src/pages/todos';
 
 export default () => (
   <ReduxWrapper>
     <RouterWrapper>
       <LayoutWrapper>
         <Switch>
+          <Route path="/todos">
+            <Todos />
+          </Route>
           <Route path="/">
             <Main />
           </Route>
