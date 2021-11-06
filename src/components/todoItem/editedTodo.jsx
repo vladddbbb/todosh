@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Form, Card, Input, DatePicker } from 'antd';
-import { EditOutlined, CloseOutlined } from '@ant-design/icons';
+import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
 
 import moment from 'moment';
 
@@ -17,23 +17,22 @@ const EditedTodo = ({ id, name, description, finishDatetime }) => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
 
-  const oldTags = useSelector(state => selectTagsByTodoId(state, id)) || [];
+  const oldTags = useSelector((state) => selectTagsByTodoId(state, id)) || [];
   const [newTags, setNewTags] = useState([]);
   const [deletedTags, setDeletedTags] = useState([]);
 
-
   const onTagAttach = (tagId) => {
-    setNewTags(prevState => [...prevState, tagId]);
+    setNewTags((prevState) => [...prevState, tagId]);
   };
 
-  const onTagDeattach = tagId => {
+  const onTagDeattach = (tagId) => {
     if (oldTags.includes(tagId)) {
-      setDeletedTags(prevState => [...prevState, tagId]);
+      setDeletedTags((prevState) => [...prevState, tagId]);
     } else {
-      setNewTags(prevState => prevState.filter(tag => tag !== tagId));
+      setNewTags((prevState) => prevState.filter((tag) => tag !== tagId));
     }
-  }
-  const getAttachedTags = () => oldTags.filter(tag => !deletedTags.includes(tag)).concat(newTags);
+  };
+  const getAttachedTags = () => oldTags.filter((tag) => !deletedTags.includes(tag)).concat(newTags);
 
   const onEditClick = () => {
     const values = form.getFieldsValue();
@@ -49,8 +48,8 @@ const EditedTodo = ({ id, name, description, finishDatetime }) => {
         todo: performedValues,
       }),
     );
-    newTags.forEach(tag => {
-      dispatch(addRef({tagId: tag, todoId: id}))
+    newTags.forEach((tag) => {
+      dispatch(addRef({ tagId: tag, todoId: id }));
     });
   };
 
@@ -92,7 +91,12 @@ const EditedTodo = ({ id, name, description, finishDatetime }) => {
             >
               <Input placeholder="Please, update todo name" />
             </Form.Item>
-            <Tags isEdited={true} attachedTags={getAttachedTags()} onTagAttach={onTagAttach} onTagDeattach={onTagDeattach}/>
+            <Tags
+              isEdited={true}
+              attachedTags={getAttachedTags()}
+              onTagAttach={onTagAttach}
+              onTagDeattach={onTagDeattach}
+            />
           </>
         }
         actions={[
@@ -105,7 +109,7 @@ const EditedTodo = ({ id, name, description, finishDatetime }) => {
               showTime={true}
             />
           </Form.Item>,
-          <EditOutlined key="edit" onClick={onEditClick} />,
+          <CheckOutlined key="edit" onClick={onEditClick} />,
           <CloseOutlined key="cancel" onClick={onCancelClick} />,
         ]}
       >
