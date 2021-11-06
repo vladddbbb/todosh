@@ -1,0 +1,13 @@
+.top-row {
+  margin-bottom: 15px;
+}
+
+.sort-radios {
+  width: 100%;
+
+  display: flex !important;
+}
+
+.sort-radios__button {
+  flex: 1;
+}

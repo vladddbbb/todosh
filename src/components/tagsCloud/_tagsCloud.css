@@ -1,0 +1,20 @@
+.tags-container {
+  justify-content: center;
+
+  width: 100%;
+}
+
+.tags-container__item {
+  cursor: pointer;
+}
+
+.tags-container__item:hover {
+  background: #fff2e8;
+  color: #d4380d;
+  border-color: #ffbb96;
+}
+
+.tags-container__input {
+  background: #fff;
+  border-style: dashed;
+}

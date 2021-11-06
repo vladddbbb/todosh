@@ -12,29 +12,24 @@ const refSlice = createSlice({
             state.push({
                 tagId: payload.tagId,
                 todoId: payload.todoId
-            })
+            });
         },
         deleteAllRefsByTagId(state, {payload}) {
-            const newState = state.filter(item => item.tagId !== payload);
-            state = [...newState];
+            return state.filter(item => item.tagId !== payload);
         },
         deleteAllRefsByTodoId(state, {payload}) {
-            const newState = state.filter(item => item.todoId !== payload);
-            state = [...newState];
+            return state.filter(item => item.todoId !== payload);
         },
         deleteRef(state, {payload}) {
-            const newState = state.filter(item => item.tagId !== payload.tagId && item.todoId !== payload.todoId);
-            state = [...newState];
+            return state.filter(item => !(item.tagId === payload.tagId && item.todoId === payload.todoId));
         }
     },
     extraReducers: {
         [deleteTag]: (state, { payload }) => {
-            const newState = state.filter(item => item.tagId !== payload);
-            state = [...newState];
+            return state.filter(item => item.tagId !== payload);
         },
         [commitDelete]: (state, {payload}) => {
-            const newState = state.filter(item => item.todoId !== payload);
-            state = [...newState];
+            return state.filter(item => item.todoId !== payload);
         }
     }
 });
