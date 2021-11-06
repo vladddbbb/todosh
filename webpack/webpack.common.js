@@ -1,7 +1,6 @@
 const path = require('path');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const WebpackNotifierPlugin = require('webpack-notifier');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin'); //replace momentJS for antd
 
 const ROOT_DIR = path.join(__dirname, '..');
@@ -42,7 +41,6 @@ module.exports = {
       template: path.resolve(PUBLIC_DIR, 'index.html'),
       favicon: path.resolve(PUBLIC_DIR, 'favicon.ico'),
     }),
-    new WebpackNotifierPlugin({ alwaysNotify: false }),
   ],
   resolve: {
     extensions: ['.js', '.jsx'],

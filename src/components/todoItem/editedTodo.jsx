@@ -20,25 +20,20 @@ const EditedTodo = ({ id, name, description, finishDatetime }) => {
   const oldTags = useSelector(state => selectTagsByTodoId(state, id)) || [];
   const [newTags, setNewTags] = useState([]);
   const [deletedTags, setDeletedTags] = useState([]);
-  const [tags, setTags] = useState(oldTags);
 
 
   const onTagAttach = (tagId) => {
-    // newTags.push(tagId);
-    setNewTags([...newTags, tagId]);
-    setTags(oldTags.filter(tag => !deletedTags.includes(tag)).concat(newTags));
+    setNewTags(prevState => [...prevState, tagId]);
   };
 
   const onTagDeattach = tagId => {
-    // deletedTags.push(tagId);
     if (oldTags.includes(tagId)) {
-      setDeletedTags([...deletedTags, tagId]);
-      setTags(oldTags.filter(tag => !deletedTags.includes(tag)).concat(newTags));
+      setDeletedTags(prevState => [...prevState, tagId]);
     } else {
-      setNewTags(newTags.filter(tag => tag !== tagId));
+      setNewTags(prevState => prevState.filter(tag => tag !== tagId));
     }
-
   }
+  const getAttachedTags = () => oldTags.filter(tag => !deletedTags.includes(tag)).concat(newTags);
 
   const onEditClick = () => {
     const values = form.getFieldsValue();
@@ -56,7 +51,7 @@ const EditedTodo = ({ id, name, description, finishDatetime }) => {
     );
     newTags.forEach(tag => {
       dispatch(addRef({tagId: tag, todoId: id}))
-    })
+    });
   };
 
   const onCancelClick = () => {
@@ -97,7 +92,7 @@ const EditedTodo = ({ id, name, description, finishDatetime }) => {
             >
               <Input placeholder="Please, update todo name" />
             </Form.Item>
-            <Tags isEdited={true} attachedTags={tags} onTagAttach={onTagAttach} onTagDeattach={onTagDeattach}/>
+            <Tags isEdited={true} attachedTags={getAttachedTags()} onTagAttach={onTagAttach} onTagDeattach={onTagDeattach}/>
           </>
         }
         actions={[

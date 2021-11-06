@@ -1,15 +1,15 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 
 import { Space, Tag, Select } from 'antd';
 
-import { PlusOutlined } from '@ant-design/icons';
-import { selectTagsForSelect} from '@src/store/selectors/tagSelectors';
+import { CloseOutlined, PlusOutlined } from '@ant-design/icons';
+import { selectTagsForSelect } from '@src/store/selectors/tagSelectors';
 import { useSelector } from 'react-redux';
 
 const Tags = ({ isEdited, attachedTags = [], onTagAttach, onTagDeattach }) => {
   const inputRef = useRef(null);
 
-  const options = useSelector(state => selectTagsForSelect(state, attachedTags));
+  const options = useSelector((state) => selectTagsForSelect(state, attachedTags));
   const [inputVisible, setInputVisible] = useState(false);
   const [inputValue, setInputValue] = useState('');
 
@@ -25,11 +25,16 @@ const Tags = ({ isEdited, attachedTags = [], onTagAttach, onTagDeattach }) => {
     setInputVisible(false);
   };
 
+  const handleTagDeattach = (tag) => () => {
+    onTagDeattach(tag);
+  };
+
   return (
     <Space direction="horizontal" wrap>
       {attachedTags.map((tag) => (
         <Tag key={tag} color="blue" className="tags-container__item">
           {tag}
+          {isEdited && <CloseOutlined onClick={handleTagDeattach(tag)} />}
         </Tag>
       ))}
       {isEdited &&
