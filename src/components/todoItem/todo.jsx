@@ -15,9 +15,19 @@ import { selectTagsByTodoId } from '@src/store/selectors/tagSelectors';
 
 const { Title, Paragraph, Text } = Typography;
 
-const Todo = ({ id, name, description, createdDatetime, updatedDatetime, finishDatetime, isComplete, order, lastTodoInd }) => {
+const Todo = ({
+  id,
+  name,
+  description,
+  createdDatetime,
+  updatedDatetime,
+  finishDatetime,
+  isComplete,
+  order,
+  lastTodoInd,
+}) => {
   const dispatch = useDispatch();
-  const attachedTags = useSelector(state => selectTagsByTodoId(state, id));
+  const attachedTags = useSelector((state) => selectTagsByTodoId(state, id));
 
   const onCompleteChange = () => {
     dispatch(toggleComplete(id));
@@ -31,18 +41,25 @@ const Todo = ({ id, name, description, createdDatetime, updatedDatetime, finishD
 
   const getDeadLineType = () => {
     const timeLeft = getTimeLeft();
-    if (timeLeft.includes('minute')) {
-      return "danger";
+    if (timeLeft.includes('minute') || timeLeft.includes('second')) {
+      return 'danger';
     } else if (timeLeft.includes('hour')) {
-      return "warning";
+      return 'warning';
     } else {
-      return "secondary";
+      return 'secondary';
     }
   };
-  const getTimeLeft = () => moment().to(moment(finishDatetime, 'YYYY-MM-DD HH:mm:ss'), true);
+  const getTimeLeft = () => {
+    const deadline = moment(finishDatetime, 'YYYY-MM-DD HH:mm:ss');
+    const timeToDeadline = moment().to(deadline, true);
+    if (moment().diff(deadline) < 0) {
+      return `Time left: ${timeToDeadline}`;
+    }
+    return `${timeToDeadline} overdue`;
+  };
 
   const todoActions = finishDatetime
-    ? [<Paragraph type={getDeadLineType()}>Time left: {getTimeLeft()}</Paragraph>]
+    ? [<Paragraph type={getDeadLineType()}>{getTimeLeft()}</Paragraph>]
     : [];
 
   return (

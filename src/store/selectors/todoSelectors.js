@@ -43,5 +43,5 @@ export const selectEditedTodo = (state) => state.todo.editedTodo;
 export const selectDeletedTodo = (state) => state.todo.deletedTodo;
 export const selectTagFilter = (state) => state.todo.tagFilter;
 export const selectLastId = (state) => state.todo.indexCounter;
-
+export const selectSortFilter = (state) => state.todo.sortFilter;
 export const selectIsEditedTodo = (id) => (state) => selectEditedTodo(state) === id;

@@ -1,11 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  tags: {
-    tag1: 'tag1',
-    tag2: 'tag2',
-    tag3: 'tag3',
-  },
+  tags: {},
   tagTextMaxSize: 50,
 };
 
