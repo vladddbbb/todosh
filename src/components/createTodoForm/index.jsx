@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { Form, Input, Button, DatePicker } from 'antd';
 
@@ -11,19 +11,25 @@ import moment from 'moment';
 import AddTagsSelect from './addTagsSelect';
 
 import { addTodo } from '@src/store/slices/todo';
+import { selectLastId } from '@src/store/selectors/todoSelectors';
+import { addRef } from '@src/store/slices/refTagTodo';
 
 const FormContainer = () => {
   const dispatch = useDispatch();
+  const lastTodoId = useSelector(selectLastId)
   const [form] = Form.useForm();
 
   const onFinish = (values) => {
     const performedValues = {
       ...values,
+      order: lastTodoId,
       finishDatetime:
         values.finishDatetime && moment(values.finishDatetime).format('YYYY-MM-DD HH:mm:ss'),
     };
-
     dispatch(addTodo(performedValues));
+    if (performedValues.tags) {
+      performedValues.tags.forEach(tag => dispatch(addRef({tagId: tag, todoId: lastTodoId})))
+    }
     form.resetFields();
   };
 

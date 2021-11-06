@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { Form, Card, Input, DatePicker } from 'antd';
 import { EditOutlined, CloseOutlined } from '@ant-design/icons';
@@ -10,10 +10,35 @@ import moment from 'moment';
 import Tags from './tags';
 
 import { commitEdit, cancelEdit } from '@src/store/slices/todo';
+import { selectTagsByTodoId } from '@src/store/selectors/tagSelectors';
+import { addRef } from '@src/store/slices/refTagTodo';
 
 const EditedTodo = ({ id, name, description, finishDatetime }) => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
+
+  const oldTags = useSelector(state => selectTagsByTodoId(state, id)) || [];
+  const [newTags, setNewTags] = useState([]);
+  const [deletedTags, setDeletedTags] = useState([]);
+  const [tags, setTags] = useState(oldTags);
+
+
+  const onTagAttach = (tagId) => {
+    // newTags.push(tagId);
+    setNewTags([...newTags, tagId]);
+    setTags(oldTags.filter(tag => !deletedTags.includes(tag)).concat(newTags));
+  };
+
+  const onTagDeattach = tagId => {
+    // deletedTags.push(tagId);
+    if (oldTags.includes(tagId)) {
+      setDeletedTags([...deletedTags, tagId]);
+      setTags(oldTags.filter(tag => !deletedTags.includes(tag)).concat(newTags));
+    } else {
+      setNewTags(newTags.filter(tag => tag !== tagId));
+    }
+
+  }
 
   const onEditClick = () => {
     const values = form.getFieldsValue();
@@ -29,6 +54,9 @@ const EditedTodo = ({ id, name, description, finishDatetime }) => {
         todo: performedValues,
       }),
     );
+    newTags.forEach(tag => {
+      dispatch(addRef({tagId: tag, todoId: id}))
+    })
   };
 
   const onCancelClick = () => {
@@ -69,7 +97,7 @@ const EditedTodo = ({ id, name, description, finishDatetime }) => {
             >
               <Input placeholder="Please, update todo name" />
             </Form.Item>
-            <Tags isEdited={true} />
+            <Tags isEdited={true} attachedTags={tags} onTagAttach={onTagAttach} onTagDeattach={onTagDeattach}/>
           </>
         }
         actions={[

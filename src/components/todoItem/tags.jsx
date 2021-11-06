@@ -3,25 +3,13 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Space, Tag, Select } from 'antd';
 
 import { PlusOutlined } from '@ant-design/icons';
+import { selectTagsForSelect} from '@src/store/selectors/tagSelectors';
+import { useSelector } from 'react-redux';
 
-const Tags = ({ isEdited }) => {
+const Tags = ({ isEdited, attachedTags = [], onTagAttach, onTagDeattach }) => {
   const inputRef = useRef(null);
 
-  const options = [
-    {
-      label: 'Tag 1',
-      value: 'tag1',
-    },
-    {
-      label: 'Tag 2',
-      value: 'tag2',
-    },
-    {
-      label: 'Tag 3',
-      value: 'tag3',
-    },
-  ];
-  const [tags, setTags] = useState(['Tag 1', 'Tag 2', 'Tag 3']);
+  const options = useSelector(state => selectTagsForSelect(state, attachedTags));
   const [inputVisible, setInputVisible] = useState(false);
   const [inputValue, setInputValue] = useState('');
 
@@ -29,8 +17,8 @@ const Tags = ({ isEdited }) => {
   const handleInputChange = (value) => setInputValue(value);
 
   const handleInputConfirm = () => {
-    if (inputValue.trim() && !tags.includes(inputValue)) {
-      setTags([...tags, inputValue.trim()]);
+    if (inputValue.trim() && !attachedTags.includes(inputValue)) {
+      onTagAttach(inputValue);
       setInputValue('');
     }
 
@@ -39,7 +27,7 @@ const Tags = ({ isEdited }) => {
 
   return (
     <Space direction="horizontal" wrap>
-      {tags.map((tag) => (
+      {attachedTags.map((tag) => (
         <Tag key={tag} color="blue" className="tags-container__item">
           {tag}
         </Tag>

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { Card, Typography, Checkbox } from 'antd';
 
@@ -11,6 +11,7 @@ import DeleteBtn from './deleteBtn';
 import Tags from './tags';
 
 import { toggleComplete, moveUp, moveDown } from '@src/store/slices/todo.js';
+import { selectTagsByTodoId } from '@src/store/selectors/tagSelectors';
 
 const { Title, Paragraph } = Typography;
 
@@ -18,6 +19,8 @@ const Todo = ({ id, name, description, finishDatetime, isComplete, order, lastTo
   const dispatch = useDispatch();
   const isFirstTodo = order === 0;
   const isLastTodo = lastTodoInd === order;
+  const attachedTags = useSelector(state => selectTagsByTodoId(state, id));
+
   const onCompleteChange = () => {
     dispatch(toggleComplete(id));
   };
@@ -51,7 +54,7 @@ const Todo = ({ id, name, description, finishDatetime, isComplete, order, lastTo
               className="todo-title__item todo-title__item_hidden"
             />
           </Title>
-          <Tags isEdited={false} />
+          <Tags isEdited={false} attachedTags={attachedTags} />
         </>
       }
       actions={[...todoActions, <EditBtn id={id} key="edit" />, <DeleteBtn id={id} />]}
