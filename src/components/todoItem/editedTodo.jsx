@@ -11,7 +11,7 @@ import Tags from './tags';
 
 import { commitEdit, cancelEdit } from '@src/store/slices/todo';
 import { selectTagsByTodoId } from '@src/store/selectors/tagSelectors';
-import { addRef } from '@src/store/slices/refTagTodo';
+import { addRef, deleteRef } from '@src/store/slices/refTagTodo';
 
 const EditedTodo = ({ id, name, description, finishDatetime }) => {
   const dispatch = useDispatch();
@@ -50,6 +50,9 @@ const EditedTodo = ({ id, name, description, finishDatetime }) => {
     );
     newTags.forEach((tag) => {
       dispatch(addRef({ tagId: tag, todoId: id }));
+    });
+    deletedTags.forEach((tag) => {
+      dispatch(deleteRef({tagId: tag, todoId: id}));
     });
   };
 

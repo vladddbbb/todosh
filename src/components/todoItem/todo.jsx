@@ -1,8 +1,8 @@
 import React from 'react';
-
+import moment from 'moment';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { Card, Typography, Checkbox } from 'antd';
+import { Card, Typography, Checkbox, Space } from 'antd';
 
 import { DownCircleOutlined, UpCircleOutlined } from '@ant-design/icons';
 
@@ -13,12 +13,10 @@ import Tags from './tags';
 import { toggleComplete, moveUp, moveDown } from '@src/store/slices/todo.js';
 import { selectTagsByTodoId } from '@src/store/selectors/tagSelectors';
 
-const { Title, Paragraph } = Typography;
+const { Title, Paragraph, Text } = Typography;
 
-const Todo = ({ id, name, description, finishDatetime, isComplete, order, lastTodoInd }) => {
+const Todo = ({ id, name, description, createdDatetime, updatedDatetime, finishDatetime, isComplete, order, lastTodoInd }) => {
   const dispatch = useDispatch();
-  const isFirstTodo = order === 0;
-  const isLastTodo = lastTodoInd === order;
   const attachedTags = useSelector(state => selectTagsByTodoId(state, id));
 
   const onCompleteChange = () => {
@@ -30,14 +28,29 @@ const Todo = ({ id, name, description, finishDatetime, isComplete, order, lastTo
   const onMoveUpClick = () => {
     dispatch(moveUp(id));
   };
-  const todoActions = finishDatetime ? [<Paragraph>Deadline: {finishDatetime}</Paragraph>] : [];
+
+  const getDeadLineType = () => {
+    const timeLeft = getTimeLeft();
+    if (timeLeft.includes('minute')) {
+      return "danger";
+    } else if (timeLeft.includes('hour')) {
+      return "warning";
+    } else {
+      return "secondary";
+    }
+  };
+  const getTimeLeft = () => moment().to(moment(finishDatetime, 'YYYY-MM-DD HH:mm:ss'), true);
+
+  const todoActions = finishDatetime
+    ? [<Paragraph type={getDeadLineType()}>Time left: {getTimeLeft()}</Paragraph>]
+    : [];
 
   return (
     <Card
       className={isComplete ? 'todo todo_is_completed' : 'todo'}
       bordered
       title={
-        <>
+        <Space direction="vertical" size="small">
           <Title level={3} className="todo-title">
             <Checkbox
               onChange={onCompleteChange}
@@ -54,8 +67,12 @@ const Todo = ({ id, name, description, finishDatetime, isComplete, order, lastTo
               className="todo-title__item todo-title__item_hidden"
             />
           </Title>
-          <Tags isEdited={false} attachedTags={attachedTags} />
-        </>
+          {attachedTags?.length > 0 && <Tags isEdited={false} attachedTags={attachedTags} />}
+          <Space direction="vertical" size={1}>
+            <Text type="secondary">Created date: {createdDatetime}</Text>
+            <Text type="secondary">Updated date: {updatedDatetime}</Text>
+          </Space>
+        </Space>
       }
       actions={[...todoActions, <EditBtn id={id} key="edit" />, <DeleteBtn id={id} />]}
     >
