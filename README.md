@@ -54,10 +54,10 @@ ToDo лист с указанным в ТЗ функционалом (По ТЗ 
 ### Главная страница с меню и описанием
 
 Главная страница выглядит так:
-![main_page]('./public/readme/main_page.PNG')
+![main_page](./public/readme/main_page.png)
 На ней находится описание, сайдбар с ссылками на другие страницы (в данном функционале - только одна доп. страница).
 А страница с todos выглядит так:
-![todos_page]('./public/readme/todos_page.PNG')
+![todos_page](./public/readme/todos_page.png)
 
 ### Возможность добавления todo
 
