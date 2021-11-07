@@ -8,6 +8,7 @@ import CreateTodoForm from '@src/components/createTodoForm';
 import TodosContainer from '@src/components/todosContainer';
 import SortRadios from '@src/components/radios';
 import Search from '@src/components/search';
+import UnfinishedToggle from '@src/components/toggle';
 
 import './_todos.css';
 
@@ -51,6 +52,9 @@ export default () => (
         }}
       >
         <Search />
+      </Col>
+      <Col span={24} order={5}>
+        <UnfinishedToggle />
       </Col>
     </Row>
     <Row gutter={[16, 16]}>

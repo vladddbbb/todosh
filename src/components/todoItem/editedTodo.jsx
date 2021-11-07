@@ -133,8 +133,8 @@ const EditedTodo = ({ id, name, description, finishDatetime }) => {
 EditedTodo.propTypes = {
   id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
-  finishDatetime: PropTypes.string.isRequired,
+  description: PropTypes.string,
+  finishDatetime: PropTypes.string,
 };
 
 export default EditedTodo;

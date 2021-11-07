@@ -25,7 +25,7 @@ export const selectFilteredTodos = createSelector(
       });
     }
     if (isOnlyUnfinished) {
-      filteredTodos = filteredTodos.filter((item) => item.isComplete);
+      filteredTodos = filteredTodos.filter((item) => !item.isComplete);
     }
     if (searchText) {
       filteredTodos = filteredTodos.filter(
@@ -45,3 +45,4 @@ export const selectTagFilter = (state) => state.todo.tagFilter;
 export const selectLastId = (state) => state.todo.indexCounter;
 export const selectSortFilter = (state) => state.todo.sortFilter;
 export const selectIsEditedTodo = (id) => (state) => selectEditedTodo(state) === id;
+export const selectIsOnlyUnfinished = (state) => state.todo.isOnlyUnfinished;

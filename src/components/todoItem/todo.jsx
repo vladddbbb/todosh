@@ -101,11 +101,11 @@ const Todo = ({
 Todo.propTypes = {
   id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
+  description: PropTypes.string,
   createdDatetime: PropTypes.string.isRequired,
   updatedDatetime: PropTypes.string.isRequired,
-  finishDatetime: PropTypes.string.isRequired,
-  isComplete: PropTypes.bool.isRequired,
+  finishDatetime: PropTypes.string,
+  isComplete: PropTypes.bool,
 };
 
 export default Todo;
