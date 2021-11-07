@@ -1,10 +1,12 @@
 import React, { useState, useRef } from 'react';
+import PropTypes from 'prop-types';
+
+import { useSelector } from 'react-redux';
 
 import { Space, Tag, Select } from 'antd';
 
 import { CloseOutlined, PlusOutlined } from '@ant-design/icons';
 import { selectTagsForSelect } from '@src/store/selectors/tagSelectors';
-import { useSelector } from 'react-redux';
 
 const Tags = ({ isEdited, attachedTags = [], onTagAttach, onTagDeattach }) => {
   const inputRef = useRef(null);
@@ -55,6 +57,13 @@ const Tags = ({ isEdited, attachedTags = [], onTagAttach, onTagDeattach }) => {
         ))}
     </Space>
   );
+};
+
+Tags.propTypes = {
+  isEdited: PropTypes.bool.isRequired,
+  attachedTags: PropTypes.array,
+  onTagAttach: PropTypes.func.isRequired,
+  onTagDeattach: PropTypes.func.isRequired,
 };
 
 export default Tags;

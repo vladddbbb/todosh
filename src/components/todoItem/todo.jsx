@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import moment from 'moment';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -23,8 +25,6 @@ const Todo = ({
   updatedDatetime,
   finishDatetime,
   isComplete,
-  order,
-  lastTodoInd,
 }) => {
   const dispatch = useDispatch();
   const attachedTags = useSelector((state) => selectTagsByTodoId(state, id));
@@ -96,6 +96,16 @@ const Todo = ({
       <Paragraph>{description || 'No description'}</Paragraph>
     </Card>
   );
+};
+
+Todo.propTypes = {
+  id: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  createdDatetime: PropTypes.string.isRequired,
+  updatedDatetime: PropTypes.string.isRequired,
+  finishDatetime: PropTypes.string.isRequired,
+  isComplete: PropTypes.bool.isRequired,
 };
 
 export default Todo;

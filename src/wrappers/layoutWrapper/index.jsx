@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { Layout, Menu } from 'antd';
 
@@ -32,15 +33,26 @@ const LayoutWrapper = ({ uri, children }) => (
           {children}
         </div>
       </Content>
-      <Footer style={{ textAlign: 'center' }}>TODOSH ©2021 Created by USERNAME</Footer>
+      <Footer style={{ textAlign: 'center' }}>
+        TODOSH ©2021 Created by marinerbob and eeravich
+      </Footer>
     </Layout>
   </Layout>
 );
+
+LayoutWrapper.propTypes = {
+  uri: PropTypes.string,
+  children: PropTypes.element,
+};
 
 const LayoutContainer = ({ children }) => {
   const uri = useSelector(getUriPath);
 
   return <LayoutWrapper uri={uri}>{children}</LayoutWrapper>;
+};
+
+LayoutContainer.propTypes = {
+  children: PropTypes.element,
 };
 
 export default LayoutContainer;

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { Modal } from 'antd';
 import { DeleteOutlined } from '@ant-design/icons';
@@ -9,7 +10,7 @@ import { startDelete, commitDelete, cancelDelete } from '@src/store/slices/todo'
 
 const { confirm } = Modal;
 
-export default ({ id }) => {
+const DeleteBtn = ({ id }) => {
   const dispatch = useDispatch();
 
   const onClick = () => {
@@ -31,3 +32,9 @@ export default ({ id }) => {
 
   return <DeleteOutlined onClick={onClick} />;
 };
+
+DeleteBtn.propTypes = {
+  id: PropTypes.number,
+};
+
+export default DeleteBtn;

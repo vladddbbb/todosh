@@ -5,7 +5,7 @@ import { Row, Col } from 'antd';
 import TagsCloud from '@src/components/tagsCloud';
 import CreateTodoForm from '@src/components/createTodoForm';
 
-import TodosContainer from './components/todosContainer';
+import TodosContainer from '@src/components/todosContainer';
 import SortRadios from '@src/components/radios';
 import Search from '@src/components/search';
 

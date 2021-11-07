@@ -1,4 +1,5 @@
 import React, { memo } from 'react';
+import PropTypes from 'prop-types';
 
 import { useSelector } from 'react-redux';
 import { selectIsEditedTodo } from '@src/store/selectors/todoSelectors';
@@ -17,5 +18,17 @@ const TodoContainer = memo((todoProps) => {
     <Col span={24}>{!isEditedTodo ? <Todo {...todoProps} /> : <EditedTodo {...todoProps} />}</Col>
   );
 });
+
+TodoContainer.propTypes = {
+  todoProps: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+    description: PropTypes.string,
+    createdDatetime: PropTypes.string,
+    updatedDatetime: PropTypes.string,
+    finishDatetime: PropTypes.string,
+    isComplete: PropTypes.bool,
+  }),
+};
 
 export default TodoContainer;

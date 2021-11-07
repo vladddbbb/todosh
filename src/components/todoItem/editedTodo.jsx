@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -52,7 +53,7 @@ const EditedTodo = ({ id, name, description, finishDatetime }) => {
       dispatch(addRef({ tagId: tag, todoId: id }));
     });
     deletedTags.forEach((tag) => {
-      dispatch(deleteRef({tagId: tag, todoId: id}));
+      dispatch(deleteRef({ tagId: tag, todoId: id }));
     });
   };
 
@@ -127,6 +128,13 @@ const EditedTodo = ({ id, name, description, finishDatetime }) => {
       </Card>
     </Form>
   );
+};
+
+EditedTodo.propTypes = {
+  id: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  finishDatetime: PropTypes.string.isRequired,
 };
 
 export default EditedTodo;
