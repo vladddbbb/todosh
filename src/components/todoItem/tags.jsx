@@ -62,8 +62,8 @@ const Tags = ({ isEdited, attachedTags = [], onTagAttach, onTagDeattach }) => {
 Tags.propTypes = {
   isEdited: PropTypes.bool.isRequired,
   attachedTags: PropTypes.array,
-  onTagAttach: PropTypes.func.isRequired,
-  onTagDeattach: PropTypes.func.isRequired,
+  onTagAttach: PropTypes.func,
+  onTagDeattach: PropTypes.func,
 };
 
 export default Tags;
