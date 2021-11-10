@@ -1,4 +1,4 @@
-import React, { Suspense, lazy, memo } from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 
 import { useSelector } from 'react-redux';
@@ -6,8 +6,8 @@ import { selectIsEditedTodo } from '@src/store/selectors/todoSelectors';
 
 import { Col } from 'antd';
 
-const Todo = lazy(() => import('./todo'));
-const EditedTodo = lazy(() => import('./editedTodo'));
+import Todo from './todo';
+import EditedTodo from './editedTodo';
 
 import './_todoItem.css';
 
@@ -15,9 +15,7 @@ const TodoContainer = memo((todoProps) => {
   const isEditedTodo = useSelector(selectIsEditedTodo(todoProps.id));
 
   return (
-    <Suspense fallback={null}>
-      <Col span={24}>{!isEditedTodo ? <Todo {...todoProps} /> : <EditedTodo {...todoProps} />}</Col>
-    </Suspense>
+    <Col span={24}>{!isEditedTodo ? <Todo {...todoProps} /> : <EditedTodo {...todoProps} />}</Col>
   );
 });
 
