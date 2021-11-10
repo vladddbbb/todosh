@@ -8,12 +8,6 @@ const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 module.exports = merge(common, {
   mode: 'production',
   devtool: false,
-  devServer: {
-    port: 4200,
-    hot: true,
-    open: false,
-    historyApiFallback: true,
-  },
   module: {
     rules: [
       {
