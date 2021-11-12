@@ -1,5 +1,6 @@
 const path = require('path');
 
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin'); //replace momentJS for antd
 
@@ -41,6 +42,7 @@ module.exports = {
       template: path.resolve(PUBLIC_DIR, 'index.html'),
       favicon: path.resolve(PUBLIC_DIR, 'favicon.ico'),
     }),
+    new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /en-gb/),
   ],
   resolve: {
     extensions: ['.js', '.jsx'],
