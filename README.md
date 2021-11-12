@@ -10,9 +10,10 @@ ToDo лист с указанным в ТЗ функционалом (По ТЗ 
 - [x] <del>Добавить switch на unfinished задачи</del>
 - [x] <del>Избавиться от moment</del> - удалены ненужные локали посредством изменения webpack-конфига
 - [x] <del>Добавить lazy-loading для роутов и компонентов</del>
-- [ ] UPD: включены по дефолту в antd: Реализовать tree-shaking модулей
+- [x] UPD: включены по дефолту в antd: Реализовать tree-shaking модулей
   - [x] <del>tree-shaking компонентов antd</del>
-  - [ ] tree-shaking иконок (На рассмотрении)
+  - [x] <del>tree-shaking иконок (На рассмотрении)</del>
+- [ ] Добавить SSR
 - [ ] Перейти на TS
 
   - [ ] Добавить eslint, сынтегрировать его и prettier
