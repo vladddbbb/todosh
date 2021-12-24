@@ -13,7 +13,7 @@ import {
 import storage from 'redux-persist/lib/storage';
 
 import { routerMiddleware } from 'connected-react-router';
-import { createBrowserHistory } from 'history';
+import { createHashHistory } from 'history';
 
 import createRootReducer from './slices/root';
 
@@ -23,7 +23,7 @@ const persistConfig = {
   whitelist: ['refTagTodo', 'tags'],
 };
 
-export const history = createBrowserHistory();
+export const history = createHashHistory();
 
 const withHistoryReducer = createRootReducer(history);
 const persistedReducer = persistReducer(persistConfig, withHistoryReducer);
