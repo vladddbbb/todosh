@@ -24,6 +24,9 @@ const LayoutWrapper = ({ uri, children }) => (
         <Menu.Item key="/todos">
           <Link to="/todos">Todos</Link>
         </Menu.Item>
+        <Menu.Item key="/help">
+          <Link to="/help">Help page</Link>
+        </Menu.Item>
       </Menu>
     </Sider>
     <Layout>
@@ -33,9 +36,7 @@ const LayoutWrapper = ({ uri, children }) => (
           {children}
         </div>
       </Content>
-      <Footer style={{ textAlign: 'center' }}>
-        TODOSH ©2021 Created by marinerbob and eeravich
-      </Footer>
+      <Footer style={{ textAlign: 'center' }}>TODOSH ©2021</Footer>
     </Layout>
   </Layout>
 );

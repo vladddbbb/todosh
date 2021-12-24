@@ -1,12 +1,13 @@
 import React from 'react';
 
-import { Button, Typography } from 'antd';
+import Button from 'antd/es/button';
+import Title from 'antd/es/typography/Title';
+import Paragraph from 'antd/es/typography/Paragraph';
+import { default as AntLink } from 'antd/es/typography/Link';
 
 import { Link } from 'react-router-dom';
 
 import './_main.css';
-
-const { Title, Paragraph } = Typography;
 
 export default () => (
   <div className="main-page">
@@ -20,6 +21,13 @@ export default () => (
       <Button className="main-page__button" block type="primary">
         <Link to="/todos">GO TO TODOS</Link>
       </Button>
+      <Paragraph className="main-page__paragraph">
+        Do you want to now how to use Todosh App? Please, see{' '}
+        <AntLink>
+          <Link to="/help">Help Page</Link>
+        </AntLink>{' '}
+        for more info!
+      </Paragraph>
     </div>
   </div>
 );

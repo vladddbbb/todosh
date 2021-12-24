@@ -10,6 +10,7 @@ import Loading from '@src/components/loading';
 
 const Main = lazy(() => import('@src/pages/main'));
 const Todos = lazy(() => import('@src/pages/todos'));
+const HelpPage = lazy(() => import('@src/pages/help'));
 
 export default () => (
   <ReduxWrapper>
@@ -18,6 +19,7 @@ export default () => (
         <Suspense fallback={<Loading />}>
           <Switch>
             <Route path="/todos" component={Todos} />
+            <Route path="/help" component={HelpPage} />
             <Route path="/" component={Main} />
           </Switch>
         </Suspense>

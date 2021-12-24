@@ -6,6 +6,10 @@
   align-items: center;
 }
 
+.main-page__button {
+  margin-bottom: 20px;
+}
+
 .main-page__container {
   display: flex;
   flex-direction: column;
