@@ -20,7 +20,7 @@ ToDo лист с указанным в ТЗ функционалом (По ТЗ 
 
 Нужен предустановленный docker. В консоли:
 
-- `docker build -t todosh-app` - билдим docker-image
+- `docker build -t todosh-app .` - билдим docker-image
 - `docker run --rm -it -p 8080:80 todosh-app` - запускаем docker-контейнер
 - переходим на http://localhost:8080
 
