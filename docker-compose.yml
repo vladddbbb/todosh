@@ -1,0 +1,12 @@
+version: "3.7"
+
+services:
+  todosh-app:
+    container_name: todosh-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - '/app/node_modules'
+    ports:
+      - '8080:80'
